@@ -1,33 +1,34 @@
-function fun = Cpunto2(h)
+function fun = Cpunto2(e)
 %Diseño del controlador con conjuntos Booleanos
-%Sensor pg
-if (h > 2.0)
-    pg = 1;
+%Para Epg
+if e >= 2
+    Epg=1;
 else
-    pg = 0;
+    Epg=0;
 end
-%Sensor pp
-if (h < 2.0)
-    pp = 1;
+%Para Epp
+if e < 2 && e>=0
+    Epp=1;
 else
-    pp = 0;
+    Epp=0;
 end
-%Sensor np
-if (h > -2.0)
-    np = 1;
+%Para Enp
+if e >= -2 && e<0
+    Enp=1;
 else
-    np = 0;
+    Enp=0;
 end
-%Sensor ng
-if (h < -2.0)
-    ng = 1;
+%Para Eng
+if e < -2
+    Eng=1;
 else
-    ng = 0;
+    Eng=0;
 end
 %Control
-Ypg = pg;
-Ypp = pp;
-Ynp = np;
-Yng = ng;
+Ypg = Epg;
+Ypp = Epp;
+Ynp = Enp;
+Yng = Eng;
+Yz = 0;
 %Salida
-fun = (Yng*-1.0)+(Ynp*-0.5)+(Ypp*1)+(Ypg*1.5);
+fun = -1*Yng - 0.5*Ynp + 0*Yz + 0.7*Ypp + 1*Ypg;

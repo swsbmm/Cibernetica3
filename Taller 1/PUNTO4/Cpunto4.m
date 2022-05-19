@@ -1,17 +1,17 @@
 function fun = Cpunto4(x)
 %Diseño del controlador con conjuntos difusos
-inf = 9999;
+
 %Sensor pg
-pg = smf(x,[2 inf]);
+pg = smf(x,[1.8 2.2]);
 
 %Sensor pp
-pp = smf(x,[0 2]);
+pp = gbellmf(x, [1.088 17.5 1]);
 
 %Sensor np
-np = smf(x,[-2 0]);
+np = gbellmf(x, [0.98 17.5 -1]);
 
 %Sensor ng
-ng = smf(x,[-inf -2]);
+ng = zmf(x, [-2.2 -1.8]);
 
 %Sensor uz
 uz = 0;
@@ -21,7 +21,7 @@ Ypg = pg;
 Ypp = pp;
 Ynp = np;
 Yng = ng;
-Yuz = uz;
+Yz = uz;
 
 %Salida
-fun = (Yng*-1.0)+(Ynp*-0.5)+(Ypp*1)+(Ypg*1.5);
+fun = -1*Yng - 0.5*Ynp + 0*Yz + 0.7*Ypp + 1*Ypg;
